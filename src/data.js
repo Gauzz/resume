@@ -27,6 +27,7 @@ export const skillGroups = [
       'Express',
       'Next.js',
       'React',
+      'Apollo GraphQL',
       'Python',
       'FastAPI',
       'PHP',
@@ -36,6 +37,8 @@ export const skillGroups = [
       'Kotlin',
       'TypeScript',
       'JavaScript',
+      'HTML',
+      'CSS',
       'Svelte',
       'Vue.js'
     ]
@@ -43,15 +46,35 @@ export const skillGroups = [
   {
     title: 'Cloud & DevOps',
     skills: [
-      'AWS (EC2, ECR, ECS, IAM, Route53, S3, CloudWatch)',
-      'AWS SQS / SNS / SES',
-      'AWS CodeBuild / CodePipeline / CDK',
-      'Azure (VM, Storage Queue, Blob, ACS)',
-      'Google Cloud (Auth, Document AI)',
+      'AWS EC2',
+      'AWS ECR',
+      'AWS ECS',
+      'AWS IAM',
+      'AWS Route53',
+      'AWS S3',
+      'AWS CloudWatch',
+      'AWS CloudFront',
+      'AWS CLI',
+      'AWS SQS',
+      'AWS SNS',
+      'AWS SES',
+      'AWS CodeBuild',
+      'AWS CodePipeline',
+      'AWS CDK',
+      'Azure VM',
+      'Azure Storage Queue',
+      'Azure Blob Storage',
+      'Azure ACS',
+      'Azure Notification Hubs',
+      'GCP Auth',
+      'GCP Document AI',
+      'Firebase',
+      'Google Analytics',
       'Docker',
       'Docker Compose',
       'Kubernetes',
       'Nginx',
+      'Git',
       'GitHub Actions',
       'Jenkins',
       'Bitbucket Pipelines'
@@ -68,8 +91,10 @@ export const skillGroups = [
       'Neo4j',
       'SQLite',
       'Qdrant',
+      'Time-series DB',
       'Kafka',
       'RabbitMQ',
+      'Redis Queue',
       'WebSocket / Socket.IO',
       'Webhook',
       'REST API',
@@ -93,6 +118,7 @@ export const skillGroups = [
       'spaCy',
       'Google TTS',
       'Claude Agent SDK',
+      'Document AI',
       'Tesseract OCR'
     ]
   },
@@ -101,22 +127,42 @@ export const skillGroups = [
     skills: [
       'ARCore',
       'ARKit',
+      'Sceneform',
       'Unity',
       'Three.js',
       'A-Frame',
       'Babylon.js',
       '8thWall',
+      'Niantic Lightship ARDK',
       'Model Viewer',
       'Web3.js',
       'Ethers.js',
       'MetaMask',
+      'Decentraland',
       'OpenSea',
-      'Pinata'
+      'Pinata',
+      'Defined (Codex API)'
     ]
   },
   {
     title: 'Testing & Operations',
-    skills: ['Jest', 'Postman', 'ElasticSearch', 'Logstash', 'Kibana', 'PM2', 'Jira', 'Trello', 'Zoho Sprints']
+    skills: [
+      'Jest',
+      'Postman',
+      'VS Code',
+      'Antigravity',
+      'Android Studio',
+      'Xcode',
+      'Visual Studio',
+      'Blender',
+      'ElasticSearch',
+      'Logstash',
+      'Kibana',
+      'PM2',
+      'Jira',
+      'Trello',
+      'Zoho Sprints'
+    ]
   }
 ];
 
@@ -160,11 +206,11 @@ export const projects = [
   },
   {
     name: 'Karmeq Trading Platform',
-    tag: 'Finance / Backend / DevOps / Compliance',
+    tag: 'Finance / Backend / DevOps / Compliance / FINRA',
     description:
       'Engineered backend and DevOps foundations for a stock platform supporting buy/sell flows, custodial gifting for minors, and real-time services for charts, stock prices, trading, and fund management. Built and executed the compliance test suite used for FINRA certification, and implemented resilient backups, logging, and worker pipelines using MySQL, MongoDB, Redis, SQS, SNS, SES, and cron jobs.',
     stack: ['Node.js', 'MongoDB', 'MySQL', 'Redis', 'AWS SQS/SNS/SES', 'Cron'],
-    categories: ['backend', 'devops', 'finance', 'compliance']
+    categories: ['backend', 'devops', 'finance', 'compliance', 'finra certification']
   },
   {
     name: 'Phygitalize NFT Plugin',
@@ -200,11 +246,19 @@ export const projects = [
   },
   {
     name: 'API Migration for FedRAMP',
-    tag: 'Healthcare / Compliance / DevOps',
+    tag: 'Healthcare / Compliance / DevOps / FEDRAMP',
     description:
       'Led backend migration work for 11 applications at a US healthcare enterprise to an AppSync-based architecture aligned with FedRAMP compliance goals. Rebuilt services with TypeScript GraphQL resolvers for queries, mutations, and subscriptions, added automated QA coverage in Postman, and delivered repeatable deployments with AWS CDK pipelines.',
     stack: ['TypeScript', 'GraphQL', 'DynamoDB', 'AWS AppSync', 'AWS CDK', 'Postman Testing'],
     categories: ['backend', 'devops', 'healthcare', 'quality', 'compliance']
+  },
+  {
+    name: 'MFSC Regulatory Forms Portal',
+    tag: 'RegTech / Backend / DevOps / Document Automation',
+    description:
+      'Built a US web portal that simplified complex regulatory form filing for users from diverse backgrounds through guided, step-by-step workflows. Enabled state-level vendor registration and business-license filing use cases by digitizing forms from an admin-driven pipeline where blank PDFs were uploaded, converted into HTML templates, reviewed manually, and then published for end-user submissions. Owned the complete Python backend and document workflows using Beautiful Soup, WeasyPrint, and PyPDF, and deployed the platform on Azure VM with Azure Storage, Azure Container Registry, and on-prem MongoDB.',
+    stack: ['Python', 'Beautiful Soup', 'WeasyPrint', 'PyPDF', 'Azure VM', 'Azure Storage', 'Azure Container Registry', 'MongoDB (On-Prem)'],
+    categories: ['backend', 'devops', 'python', 'azure', 'mongodb', 'regtech', 'document automation']
   },
   {
     name: 'Optymedge Certification Module',
@@ -212,7 +266,7 @@ export const projects = [
     description:
       'Built the core certification module for a US healthcare lab and study platform, a critical workflow underpinning the main business process. Implemented strongly typed GraphQL services and DynamoDB-backed data models focused on integrity, traceability, and operational reliability.',
     stack: ['TypeScript', 'GraphQL', 'DynamoDB'],
-    categories: ['backend', 'healthcare', 'compliance']
+    categories: ['backend', 'healthcare', 'compliance', 'fedramp compliance']
   },
   {
     name: 'Legal Register AI Platform',

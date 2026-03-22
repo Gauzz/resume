@@ -109,6 +109,15 @@ Ethers.js, web3.js, pinata, metamask, decentraland, opensea, defined(codex api)
 * I also wrote several automated testcases on postman for QA.  
 * **Labels(only for information to help AI decide where this project should be put… This should not be included in the description of the project):** Backend development, Devops, healthcare, API testing, QA
 
+**MFSC**
+
+* This was a US web portal built to simplify complex regulatory form filing for people from diverse backgrounds, with step-by-step guidance across the full process.  
+* It supported use cases like state-wise vendor registration and business license related form submissions through a digitized, user-friendly workflow.  
+* Admin users uploaded empty PDF forms, developers converted those forms into HTML templates, and after manual admin review they were published for end-user form filling.  
+* I owned the complete backend, built in Python using Beautiful Soup, WeasyPrint, and PyPDF for document parsing, transformation, and PDF generation workflows.  
+* It was deployed on Azure VM with Azure Storage and Azure Container Registry, with on-prem MongoDB used as the primary database.  
+* **Labels(only for information to help AI decide where this project should be put… This should not be included in the description of the project):** Backend development, Devops, Python, Azure, MongoDB, Regtech, Document automation
+
 **Optymedge**
 
 * This was a lab and study certification project of an US based healthcare enterprise(emmes).   
