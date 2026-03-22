@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { experience, profile, projects, skillGroups } from "./data";
 
 const projectCategories = [
@@ -64,14 +64,24 @@ const projectCategories = [
   },
 ];
 
+const MOBILE_PROJECT_BREAKPOINT = "(max-width: 820px)";
+const CATEGORY_SWIPE_THRESHOLD = 52;
+
 function App() {
   const [activeCategory, setActiveCategory] = useState(projectCategories[0].id);
+  const repoNavRef = useRef(null);
+  const swipeStartRef = useRef(null);
 
   const nameParts = profile.name.trim().split(/\s+/);
   const firstName = nameParts[0] ?? profile.name;
   const lastName = nameParts.slice(1).join(" ");
 
   const ecosystemGroups = useMemo(() => skillGroups, []);
+  const activeCategoryIndex = useMemo(
+    () =>
+      projectCategories.findIndex((category) => category.id === activeCategory),
+    [activeCategory],
+  );
 
   const categorizedProjects = useMemo(() => {
     return projectCategories.reduce((accumulator, category) => {
@@ -91,6 +101,80 @@ function App() {
   const footerLinks = profile.links.filter((link) =>
     ["linkedin", "github", "email"].includes(link.label.toLowerCase()),
   );
+
+  const isMobileCategoryView = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia(MOBILE_PROJECT_BREAKPOINT).matches;
+
+  useEffect(() => {
+    if (!isMobileCategoryView()) {
+      return;
+    }
+
+    const repoNav = repoNavRef.current;
+    if (!repoNav) {
+      return;
+    }
+
+    const activeTab = repoNav.querySelector(
+      `[data-category-id="${activeCategory}"]`,
+    );
+
+    activeTab?.scrollIntoView({
+      inline: "center",
+      block: "nearest",
+      behavior: "smooth",
+    });
+  }, [activeCategory]);
+
+  const handleRepoTouchStart = (event) => {
+    if (!isMobileCategoryView()) {
+      swipeStartRef.current = null;
+      return;
+    }
+
+    const touchPoint = event.changedTouches[0];
+    swipeStartRef.current = {
+      x: touchPoint.clientX,
+      y: touchPoint.clientY,
+    };
+  };
+
+  const handleRepoTouchCancel = () => {
+    swipeStartRef.current = null;
+  };
+
+  const handleRepoTouchEnd = (event) => {
+    if (!swipeStartRef.current || !isMobileCategoryView()) {
+      swipeStartRef.current = null;
+      return;
+    }
+
+    const touchPoint = event.changedTouches[0];
+    const deltaX = touchPoint.clientX - swipeStartRef.current.x;
+    const deltaY = touchPoint.clientY - swipeStartRef.current.y;
+    swipeStartRef.current = null;
+
+    if (
+      Math.abs(deltaX) < CATEGORY_SWIPE_THRESHOLD ||
+      Math.abs(deltaX) <= Math.abs(deltaY)
+    ) {
+      return;
+    }
+
+    if (
+      deltaX < 0 &&
+      activeCategoryIndex >= 0 &&
+      activeCategoryIndex < projectCategories.length - 1
+    ) {
+      setActiveCategory(projectCategories[activeCategoryIndex + 1].id);
+      return;
+    }
+
+    if (deltaX > 0 && activeCategoryIndex > 0) {
+      setActiveCategory(projectCategories[activeCategoryIndex - 1].id);
+    }
+  };
 
   return (
     <div className="app">
@@ -174,11 +258,16 @@ function App() {
         <section className="section repo-section reveal">
           <div className="section-title">Project Repositories</div>
           <div className="repo-board">
-            <aside className="repo-nav" aria-label="Project categories">
+            <aside
+              className="repo-nav"
+              aria-label="Project categories"
+              ref={repoNavRef}
+            >
               {projectCategories.map((category) => (
                 <button
                   type="button"
                   key={category.id}
+                  data-category-id={category.id}
                   className={`repo-tab ${activeCategory === category.id ? "is-active" : ""}`}
                   onClick={() => setActiveCategory(category.id)}
                 >
@@ -186,7 +275,12 @@ function App() {
                 </button>
               ))}
             </aside>
-            <div className="repo-list">
+            <div
+              className="repo-list"
+              onTouchStart={handleRepoTouchStart}
+              onTouchEnd={handleRepoTouchEnd}
+              onTouchCancel={handleRepoTouchCancel}
+            >
               {visibleProjects.length === 0 ? (
                 <p className="repo-empty">
                   No projects found in this category.
